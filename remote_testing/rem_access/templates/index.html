@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -9,45 +10,46 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.0/css/bootstrap-slider.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.0/bootstrap-slider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.min.js"></script>
+    <link rel='stylesheet' href='{% static "css/style.css" %}'/>
     <style>
-        #ex1Slider .slider-selection {
-            background: #BABABA;
-        }
-        #content {
-            width: 880px;
-            margin: 0 auto;
-            padding: 10px;
-        }
-        .demo-container {
-            box-sizing: border-box;
-            width: 850px;
-            height: 450px;
-            padding: 20px 15px 15px 15px;
-            margin: 15px auto 30px auto;
-            border: 1px solid #ddd;
-            background: #fff;
-            background: linear-gradient(#f6f6f6 0, #fff 50px);
-            background: -o-linear-gradient(#f6f6f6 0, #fff 50px);
-            background: -ms-linear-gradient(#f6f6f6 0, #fff 50px);
-            background: -moz-linear-gradient(#f6f6f6 0, #fff 50px);
-            background: -webkit-linear-gradient(#f6f6f6 0, #fff 50px);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-            -o-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            -ms-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            -moz-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            -webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
+        #   ex1Slider .slider-selection {
+                background: #BABABA;
+            }
+            #content {
+                width: 880px;
+                margin: 0 auto;
+                padding: 10px;
+            }
+            .demo-container {
+                box-sizing: border-box;
+                width: 425px;
+                height: 225px;
+                /*padding: 20px 15px 15px 15px;*/
+                /*margin: 15px auto 30px auto;*/
+                border: 1px solid #ddd;
+                background: #fff;
+                background: linear-gradient(#f6f6f6 0, #fff 50px);
+                background: -o-linear-gradient(#f6f6f6 0, #fff 50px);
+                background: -ms-linear-gradient(#f6f6f6 0, #fff 50px);
+                background: -moz-linear-gradient(#f6f6f6 0, #fff 50px);
+                background: -webkit-linear-gradient(#f6f6f6 0, #fff 50px);
+                box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+                -o-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+                -ms-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+                -moz-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+                -webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            }
 
-        .demo-placeholder {
-            width: 100%;
-            height: 100%;
-            font-size: 14px;
-            line-height: 1.2em;
-        }
+            .demo-placeholder {
+                width: 100%;
+                height: 100%;
+                font-size: 14px;
+                line-height: 1.2em;
+            }
 
-        .legend table {
-            border-spacing: 5px;
-        }
+            .legend table {
+                border-spacing: 5px;
+            }
     </style>
 </head>
 <body>
@@ -55,20 +57,19 @@
         <div class="col-sm-9">
             <div class="col-sm-6">
                 <h3>Gr1</h3>
-                <div id="content">
-
+                <div id="content_1">
                     <div class="demo-container">
-                        <div id="placeholder" class="demo-placeholder"></div>
+                        <div id="placeholder_1" class="demo-placeholder"></div>
                     </div>
-
-                    <p>You can update a chart periodically to get a real-time effect by using a timer to insert the new data in the plot and redraw it.</p>
-
-                    <p>Time between updates: <input id="updateInterval" type="text" value="" style="text-align: right; width:5em"> milliseconds</p>
-
                 </div>
             </div>
             <div class="col-sm-6">
                 <h3>Gr2</h3>
+                <div id="content_2">
+                    <div class="demo-container">
+                        <div id="placeholder_2" class="demo-placeholder"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-sm-3">
@@ -81,9 +82,19 @@
         <div class="col-sm-9">
             <div class="col-sm-6">
                 <h3>Gr3</h3>
+                <div id="content_3">
+                    <div class="demo-container">
+                        <div id="placeholder_3" class="demo-placeholder"></div>
+                    </div>
+                </div>
             </div>
             <div class="col-sm-6">
                 <h3>Gr4</h3>
+                <div id="content_4">
+                    <div class="demo-container">
+                        <div id="placeholder_4" class="demo-placeholder"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-sm-3"></div>
@@ -97,10 +108,14 @@
         };
         var ws = new WebSocket("ws://0.0.0.0:6544");
 
-        var data = [],
-			totalPoints = 300;
-        for (var i = 0; i < totalPoints; ++i) {
-			data.push([i, 0]);
+        var data = {},
+			totalPoints = 100;
+        for (var t = 0;  t < 4; t++){
+            var arr = [];
+            for (var i = 0; i < totalPoints; ++i) {
+                arr.push([i, 0]);
+            }
+            data[t] = arr;
         }
         console.log(data);
         // вызовется, когда соединение будет установлено:
@@ -156,53 +171,103 @@
 		function getData(datas) {
 
             var i = 0,
-                dataNew = [];
-			while (i < totalPoints - 1) {
-				dataNew.push([i, data[i+1][1]]);
-                i += 1;
-			}
-            dataNew.push([totalPoints - 1, datas.data[0]]);
-            data = [];
+                dataNew = {};
+
+            for (var t = 0;  t < 4; t++){
+                var arr = [];
+                for (var i = 0; i < totalPoints-1; ++i) {
+                    arr.push([i, data[t][i+1][1]]);
+                }
+                dataNew[t] = arr;
+            }
+            for (var t = 0; t < 4; t++){
+                var arr = dataNew[t]
+                arr.push([totalPoints - 1, datas.data[t]]);
+                dataNew[t] = arr;
+            }
+            data = {};
             data = dataNew;
-            dataNew = [];
 		}
 
 		// Set up the control widget
 
-		var updateInterval = 30;
-		$("#updateInterval").val(updateInterval).change(function () {
-			var v = $(this).val();
-			if (v && !isNaN(+v)) {
-				updateInterval = +v;
-				if (updateInterval < 1) {
-					updateInterval = 1;
-				} else if (updateInterval > 2000) {
-					updateInterval = 2000;
-				}
-				$(this).val("" + updateInterval);
-			}
-		});
+//		var updateInterval = 30;
+//		$("#updateInterval").val(updateInterval).change(function () {
+//			var v = $(this).val();
+//			if (v && !isNaN(+v)) {
+//				updateInterval = +v;
+//				if (updateInterval < 1) {
+//					updateInterval = 1;
+//				} else if (updateInterval > 2000) {
+//					updateInterval = 2000;
+//				}
+//				$(this).val("" + updateInterval);
+//			}
+//		});
 
-		var plot = $.plot("#placeholder", [ data ], {
+		var plot1 = $.plot("#placeholder_1", [ data[0] ], {
 			series: {
 				shadowSize: 0	// Drawing is faster without shadows
 			},
 			yaxis: {
-				min: -1000,
-				max: 1000
+				min: -500,
+				max: 500
 			},
 			xaxis: {
-				show: false
+				show: true
+			}
+		});
+        var plot2 = $.plot("#placeholder_2", [ data[1] ], {
+			series: {
+				shadowSize: 0	// Drawing is faster without shadows
+			},
+			yaxis: {
+				min: -500,
+				max: 500
+			},
+			xaxis: {
+				show: true
+			}
+		});
+        var plot3 = $.plot("#placeholder_3", [ data[2] ], {
+			series: {
+				shadowSize: 0	// Drawing is faster without shadows
+			},
+			yaxis: {
+				min: -500,
+				max: 500
+			},
+			xaxis: {
+				show: true
+			}
+		});
+        var plot4 = $.plot("#placeholder_4", [ data[3] ], {
+			series: {
+				shadowSize: 0	// Drawing is faster without shadows
+			},
+			yaxis: {
+				min: -500,
+				max: 500
+			},
+			xaxis: {
+				show: true
 			}
 		});
 
+
 		function update() {
-			plot.setData([data]);
+			plot1.setData([data[0]]);
+			plot2.setData([data[1]]);
+			plot3.setData([data[2]]);
+			plot4.setData([data[3]]);
 
 			// Since the axes don't change, we don't need to call plot.setupGrid()
 
-			plot.draw();
-			setTimeout(update, updateInterval);
+			plot1.draw();
+			plot2.draw();
+			plot3.draw();
+			plot4.draw();
+			setTimeout(update, 40);
 		}
 
 		update();

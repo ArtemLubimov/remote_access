@@ -20,4 +20,4 @@ from django.conf import settings
 urlpatterns = [
     url(r'^rem_access/', include('rem_access.urls')),
     url(r'^admin/', admin.site.urls),
-] #+ static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

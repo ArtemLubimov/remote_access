@@ -50,6 +50,7 @@ def getData(_self, isBinary):
     """
     while True:
         try:
+            print(ser.readline().decode('utf-8')[:-5].split(','))
             _self.sendJSONmsg(str({"data": list(map(int, ser.readline().decode('utf-8')[:-5].split(',')))}), isBinary)
         except Exception as ex:
             print('error receive data - %s', ser.readline().decode('utf-8'))
