@@ -25,7 +25,7 @@ SECRET_KEY = '$w#bo6-&%)@99n0(qs*yu%3+9%=@q6@igyn2#647^xsho3keds'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '7220610f.ngrok.io']
 
 
 # Application definition
@@ -54,7 +54,7 @@ ROOT_URLCONF = 'remote_testing.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'rem_access/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -64,12 +64,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
-    },
-    {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'DIRS': [os.path.join(BASE_DIR, 'rem_access/templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {},
     },
 ]
 
@@ -122,5 +116,5 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, "rem_access/static")
 STATIC_URL = '/static/'

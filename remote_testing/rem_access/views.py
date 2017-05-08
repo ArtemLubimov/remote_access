@@ -13,7 +13,7 @@ def index(request):
     """
     if request.POST:
         return HttpResponseRedirect(reverse('result'))
-    return render(request, 'index.jinja2', {'res': 'aaa'})
+    return render(request, 'index.html')
 
 
 def result(request):
