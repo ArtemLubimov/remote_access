@@ -50,13 +50,18 @@
             .legend table {
                 border-spacing: 5px;
             }
+            .sup {
+              position: relative;
+              bottom: 1ex;
+              font-size: 80%;
+            }
     </style>
 </head>
 <body>
     <div class="row">
         <div class="col-sm-9">
             <div class="col-sm-6">
-                <h3>Gr1</h3>
+                <h3>Sollwert Position</h3>
                 <div id="content_1">
                     <div class="demo-container">
                         <div id="placeholder_1" class="demo-placeholder"></div>
@@ -64,7 +69,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <h3>Gr2</h3>
+                <h3>Istwert Position</h3>
                 <div id="content_2">
                     <div class="demo-container">
                         <div id="placeholder_2" class="demo-placeholder"></div>
@@ -74,14 +79,16 @@
         </div>
         <div class="col-sm-3">
             <br/>
-            <h3>Позиция:</h3><br />
+            <h3>Position:</h3><br />
             <input class="from-control" id="position" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="14"/>
+            <br />
+            <a href='https://hostingkartinok.com/show-image.php?id=04a90ceb817b0fc53b33570f907635af'  title='picture hosting'><img style="width:100%;margin-left:-15%;" src='https://s8.hostingkartinok.com/uploads/images/2017/05/04a90ceb817b0fc53b33570f907635af.jpg' /></a>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-9">
             <div class="col-sm-6">
-                <h3>Gr3</h3>
+                <h3>Beschleunigung</h3>
                 <div id="content_3">
                     <div class="demo-container">
                         <div id="placeholder_3" class="demo-placeholder"></div>
@@ -89,7 +96,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <h3>Gr4</h3>
+                <h3>Strom</h3>
                 <div id="content_4">
                     <div class="demo-container">
                         <div id="placeholder_4" class="demo-placeholder"></div>
@@ -106,7 +113,7 @@
         String.prototype.replaceAll = function (str1, str2, ignore) {
             return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, "\\$&"), (ignore ? "gi" : "g")), (typeof(str2) == "string") ? str2.replace(/\$/g, "$$$$") : str2);
         };
-        var ws = new WebSocket("ws://0.0.0.0:6544");
+        var ws = new WebSocket("ws://localhost:6544");
 
         var data = {},
 			totalPoints = 100;
@@ -160,6 +167,7 @@
             "beforeunload",
             function() {
                 message = 'get_data';
+                ws.close();
                // ws.send(JSON.stringify(message));
             }
         );
@@ -210,8 +218,8 @@
 				shadowSize: 0	// Drawing is faster without shadows
 			},
 			yaxis: {
-				min: -500,
-				max: 500
+				min: -100,
+				max: 100
 			},
 			xaxis: {
 				show: true
@@ -222,8 +230,8 @@
 				shadowSize: 0	// Drawing is faster without shadows
 			},
 			yaxis: {
-				min: -500,
-				max: 500
+				min: -100,
+				max: 100
 			},
 			xaxis: {
 				show: true
@@ -234,8 +242,8 @@
 				shadowSize: 0	// Drawing is faster without shadows
 			},
 			yaxis: {
-				min: -500,
-				max: 500
+				min: -100,
+				max: 100
 			},
 			xaxis: {
 				show: true
@@ -246,8 +254,8 @@
 				shadowSize: 0	// Drawing is faster without shadows
 			},
 			yaxis: {
-				min: -500,
-				max: 500
+				min: -1000,
+				max: 1000
 			},
 			xaxis: {
 				show: true

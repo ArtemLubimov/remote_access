@@ -51,9 +51,16 @@ def getData(_self, isBinary):
     while True:
         try:
             print(ser.readline().decode('utf-8')[:-5].split(','))
-            _self.sendJSONmsg(str({"data": list(map(int, ser.readline().decode('utf-8')[:-5].split(',')))}), isBinary)
+            arr = ser.readline().decode('utf-8')[:-5].split(',')
+            arr_n = []
+            i = 0
+            while i < 4:
+                arr_n.append(float(arr[i]))
+                i += 1
+            _self.sendJSONmsg(str({"data": arr_n}), isBinary)
         except Exception as ex:
             print('error receive data - %s', ser.readline().decode('utf-8'))
+            print('%s', ex)
 
 if __name__ == '__main__':
 
@@ -64,11 +71,11 @@ if __name__ == '__main__':
         # import trollius as asyncio
         print('import asyncio failed')
 
-    factory = WebSocketServerFactory(u"ws://0.0.0.0:6544")
+    factory = WebSocketServerFactory("ws://localhost:6544")
     factory.protocol = MyServerProtocol
 
     loop = asyncio.get_event_loop()
-    coro = loop.create_server(factory, '0.0.0.0', 6544)
+    coro = loop.create_server(factory, 'localhost', 6544)
     server = loop.run_until_complete(coro)
 
     try:
